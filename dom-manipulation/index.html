@@ -3,20 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dynamic Quote Generator with Filter</title>
+    <title>Dynamic Quote Generator with Category Filter</title>
   </head>
   <body>
     <h1>Dynamic Quote Generator</h1>
 
-    <!-- Category Filter (Dynamically Populated) -->
+    <!-- Category Filter System -->
     <select id="categoryFilter" onchange="filterQuotes()">
       <option value="all">All Categories</option>
     </select>
 
-    <!-- Display Quotes -->
+    <!-- Quotes Display Section -->
     <div id="quoteList"></div>
 
-    <!-- Add New Quote -->
+    <!-- Add Quote Form -->
     <form id="quoteForm">
       <input type="text" id="quoteText" placeholder="Enter quote" required />
       <input type="text" id="quoteAuthor" placeholder="Enter author" required />
@@ -29,7 +29,6 @@
       <button type="submit">Add Quote</button>
     </form>
 
-    <!-- Load Script -->
     <script src="script.js"></script>
   </body>
 </html>

@@ -1,64 +1,72 @@
-// Load quotes from LocalStorage or start empty
+// Retrieve stored quotes or initialize empty array
 let quotes = JSON.parse(localStorage.getItem("quotes")) || [];
 
-// Save quotes back to LocalStorage
+// Save quotes to local storage
 function saveQuotes() {
   localStorage.setItem("quotes", JSON.stringify(quotes));
 }
 
-// Populate category dropdown dynamically
+// Populate categories dynamically from quotes array
 function populateCategories() {
   const categoryFilter = document.getElementById("categoryFilter");
-  const categories = ["all", ...new Set(quotes.map((q) => q.category))];
+  const categories = ["all", ...new Set(quotes.map((quote) => quote.category))];
 
   categoryFilter.innerHTML = categories
-    .map((cat) => `<option value="${cat}">${cat}</option>`)
+    .map((category) => `<option value="${category}">${category}</option>`)
     .join("");
 
-  // Restore last selected filter
+  // Restore last selected category filter
   const savedFilter = localStorage.getItem("selectedCategory");
   if (savedFilter) {
     categoryFilter.value = savedFilter;
   }
 }
 
-// Display quotes in DOM
+// Render quotes to the DOM
 function renderQuotes(filteredQuotes) {
   const quoteList = document.getElementById("quoteList");
   quoteList.innerHTML = filteredQuotes
-    .map((q) => `<p>${q.text} - <em>${q.author}</em> [${q.category}]</p>`)
+    .map(
+      (quote) =>
+        `<p>${quote.text} - <em>${quote.author}</em> [${quote.category}]</p>`
+    )
     .join("");
 }
 
 // Filter quotes based on selected category
 function filterQuotes() {
-  const category = document.getElementById("categoryFilter").value;
-  localStorage.setItem("selectedCategory", category);
+  const selectedCategory = document.getElementById("categoryFilter").value;
+  localStorage.setItem("selectedCategory", selectedCategory);
 
-  if (category === "all") {
+  if (selectedCategory === "all") {
     renderQuotes(quotes);
   } else {
-    renderQuotes(quotes.filter((q) => q.category === category));
+    const filtered = quotes.filter(
+      (quote) => quote.category === selectedCategory
+    );
+    renderQuotes(filtered);
   }
 }
 
-// Handle form submission to add a new quote
-document.getElementById("quoteForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+// Handle new quote submission
+document
+  .getElementById("quoteForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
 
-  const text = document.getElementById("quoteText").value;
-  const author = document.getElementById("quoteAuthor").value;
-  const category = document.getElementById("quoteCategory").value;
+    const text = document.getElementById("quoteText").value;
+    const author = document.getElementById("quoteAuthor").value;
+    const category = document.getElementById("quoteCategory").value;
 
-  quotes.push({ text, author, category });
-  saveQuotes();
+    quotes.push({ text, author, category });
+    saveQuotes();
 
-  populateCategories();
-  filterQuotes();
+    populateCategories();
+    filterQuotes();
 
-  this.reset();
-});
+    this.reset();
+  });
 
-// Initial load
+// Initial execution
 populateCategories();
 filterQuotes();
