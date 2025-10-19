@@ -45,3 +45,39 @@ document.getElementById("newQuote").addEventListener("click", showRandomQuote);
 
 // ✅ Initial call
 showRandomQuote();
+function saveQuotes() {
+  localStorage.setItem("quotes", JSON.stringify(quotes));
+}
+
+function loadQuotes() {
+  const storedQuotes = localStorage.getItem("quotes");
+  if (storedQuotes) {
+    quotes = JSON.parse(storedQuotes);
+  }
+}
+loadQuotes(); // Call this when app starts
+document.getElementById("exportJson").addEventListener("click", () => {
+  const dataStr = JSON.stringify(quotes, null, 2);
+  const blob = new Blob([dataStr], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "quotes.json";
+  link.click();
+});
+document
+  .getElementById("importFile")
+  .addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const importedQuotes = JSON.parse(e.target.result);
+      quotes.push(...importedQuotes);
+      saveQuotes();
+      alert("Quotes imported successfully!");
+    };
+
+    reader.readAsText(file);
+  });
