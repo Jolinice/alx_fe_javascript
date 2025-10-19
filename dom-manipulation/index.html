@@ -3,32 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dynamic Quote Generator</title>
+    <title>Dynamic Quote Generator with Filter</title>
   </head>
   <body>
     <h1>Dynamic Quote Generator</h1>
 
-    <!-- ✅ Placeholder for random quote -->
-    <div id="quoteDisplay"></div>
+    <!-- Category Filter (Dynamically Populated) -->
+    <select id="categoryFilter" onchange="filterQuotes()">
+      <option value="all">All Categories</option>
+    </select>
 
-    <!-- ✅ Button must have id="newQuote" -->
-    <button id="newQuote">Show New Quote</button>
+    <!-- Display Quotes -->
+    <div id="quoteList"></div>
 
-    <!-- ✅ Inputs and button for addQuote() -->
-    <div style="margin-top: 20px">
-      <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
+    <!-- Add New Quote -->
+    <form id="quoteForm">
+      <input type="text" id="quoteText" placeholder="Enter quote" required />
+      <input type="text" id="quoteAuthor" placeholder="Enter author" required />
       <input
-        id="newQuoteCategory"
         type="text"
-        placeholder="Enter quote category"
+        id="quoteCategory"
+        placeholder="Enter category"
+        required
       />
-      <button onclick="addQuote()">Add Quote</button>
-      <button id="exportJson">Export Quotes (JSON)</button>
-      <input type="file" id="importFile" accept=".json" />
-      <button id="importJson">Import Quotes</button>
-    </div>
+      <button type="submit">Add Quote</button>
+    </form>
 
-    <!-- ✅ Link script correctly -->
+    <!-- Load Script -->
     <script src="script.js"></script>
   </body>
 </html>
