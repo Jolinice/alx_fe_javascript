@@ -8,11 +8,13 @@
   <body>
     <h1>Dynamic Quote Generator</h1>
 
-    <!-- Display Random Quote -->
+    <!-- ✅ Placeholder for random quote -->
     <div id="quoteDisplay"></div>
+
+    <!-- ✅ Button must have id="newQuote" -->
     <button id="newQuote">Show New Quote</button>
 
-    <!-- Form to Add New Quote -->
+    <!-- ✅ Inputs and button for addQuote() -->
     <div style="margin-top: 20px">
       <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
       <input
@@ -20,9 +22,10 @@
         type="text"
         placeholder="Enter quote category"
       />
-      <button id="addQuoteBtn">Add Quote</button>
+      <button onclick="addQuote()">Add Quote</button>
     </div>
 
+    <!-- ✅ Link script correctly -->
     <script src="script.js"></script>
   </body>
 </html>
